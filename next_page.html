@@ -31,6 +31,10 @@
             max-width: calc(100% - 40px); /* 画面の幅に対する最大幅を設定 */
             height: auto;
         }
+        .message {
+            font-size: 20px;
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -38,34 +42,63 @@
         <h1 id="result-header"></h1>
         <!-- 画像を表示するための要素 -->
         <img id="random-image" class="random-image" src="" alt="ランダム画像">
+        <p id="message" class="message"></p>
     </div>
 
     <script>
-        // URLパラメータから名前を取得
-        const urlParams = new URLSearchParams(window.location.search);
-        const name = urlParams.get('name');
-        
-        // 結果メッセージを設定
-        const resultHeader = document.getElementById('result-header');
-        if(name) {
-            resultHeader.textContent = `${name}さんの おみくじの結果`;
-        } else {
-            resultHeader.textContent = "名前が入力されていません。";
+        // 一日のみおみくじを引けるかどうかをチェック
+        function checkLotteryStatus() {
+            const today = new Date().toISOString().split('T')[0]; // 今日の日付を取得
+            const lastDate = localStorage.getItem('lastDate');
+
+            if (lastDate === today) {
+                return false; // 今日すでに引いている
+            } else {
+                localStorage.setItem('lastDate', today); // 今日の日付を保存
+                return true; // 今日まだ引いていない
+            }
         }
 
-        // ランダムに表示する画像のリスト
-        const images = [
-            '1.png',
-            '3.png',
-            '4.png',
-            '5.png',
-            '6.png',
-            '7.png',
-        ];
+        // おみくじを引く処理
+        function drawFortune() {
+            const isAllowed = checkLotteryStatus();
+            const messageElement = document.getElementById('message');
+            const resultHeader = document.getElementById('result-header');
 
-        // ランダムに画像を選ぶ
-        const randomImage = images[Math.floor(Math.random() * images.length)];
-        document.getElementById('random-image').src = randomImage;
+            if (isAllowed) {
+                // URLパラメータから名前を取得
+                const urlParams = new URLSearchParams(window.location.search);
+                const name = urlParams.get('name');
+                
+                if(name) {
+                    resultHeader.textContent = `${name}さんの おみくじの結果`;
+                } else {
+                    resultHeader.textContent = "名前が入力されていません。";
+                }
+
+                // ランダムに表示する画像のリスト
+                const images = [
+                    '1.png',
+                    '3.png',
+                    '4.png',
+                    '5.png',
+                    '6.png',
+                    '7.png',
+                ];
+
+                // ランダムに画像を選ぶ
+                const randomImage = images[Math.floor(Math.random() * images.length)];
+                document.getElementById('random-image').src = randomImage;
+                messageElement.textContent = '';
+            } else {
+                resultHeader.textContent = '';
+                document.getElementById('random-image').src = '';
+                messageElement.textContent = '今日はすでにおみくじを引きました。';
+            }
+        }
+
+        // ページが読み込まれたときにおみくじを引く
+        window.onload = drawFortune;
     </script>
 </body>
 </html>
