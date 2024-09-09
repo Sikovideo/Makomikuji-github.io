@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>結果ページ</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('背景2.png'); /* 背景画像の設定 */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end; /* コンテンツを下に揃える */
+            min-height: 100vh;
+        }
+        .result {
+            text-align: center;
+            margin-bottom: 20px; /* 画面下部からのスペース */
+        }
+        .result h1 {
+            font-size: 20px; /* フォントサイズを小さく設定 */
+        }
+        .random-image {
+            width: 1200px;
+            height: 630px;
+            margin: 20px; /* 画像の周りのスペース */
+            max-width: calc(100% - 40px); /* 画面の幅に対する最大幅を設定 */
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="result">
+        <h1 id="result-header"></h1>
+        <!-- 画像を表示するための要素 -->
+        <img id="random-image" class="random-image" src="" alt="ランダム画像">
+    </div>
+
+    <script>
+        // URLパラメータから名前を取得
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get('name');
+        
+        // 結果メッセージを設定
+        const resultHeader = document.getElementById('result-header');
+        if(name) {
+            resultHeader.textContent = `${name}さんの おみくじの結果`;
+        } else {
+            resultHeader.textContent = "名前が入力されていません。";
+        }
+
+        // ランダムに表示する画像のリスト
+        const images = [
+            '1.png',
+            '2.png',
+            '3.png'
+        ];
+
+        // ランダムに画像を選ぶ
+        const randomImage = images[Math.floor(Math.random() * images.length)];
+        document.getElementById('random-image').src = randomImage;
+    </script>
+</body>
+</html>
