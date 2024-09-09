@@ -1,4 +1,3 @@
-```css
 * {
     margin: 0;
     padding: 0;
@@ -17,19 +16,22 @@ body, html {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* 要素を下に配置 */
+    justify-content: flex-end; /* 要素を画面下に配置 */
     align-items: center;
+    padding: 20px; /* フォームと画面端の距離を調整 */
 }
 
 .form-container {
-    padding: 20px;
     width: 100%;
+    max-width: 500px; /* 最大幅を設定して過度な広がりを防ぐ */
     text-align: center;
-    margin-bottom: 20px; /* ボタンを少し上げるための余白 */
+    padding: 20px;
+    /* background-color: transparent; 白い背景色を削除 */
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 影をつける場合はそのまま */
 }
 
 input[type="text"] {
-    width: 80%;
+    width: 100%;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
@@ -50,4 +52,3 @@ button {
 button:hover {
     background-color: #ff85c0;
 }
-```
