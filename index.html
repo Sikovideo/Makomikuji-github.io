@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>真みくじ</title>
     <link rel="stylesheet" href="styles.css">
@@ -14,12 +15,12 @@
         </div>
     </div>
 
-<script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('submit-btn').addEventListener('click', function() {
-                const name = document.getElementById('name').value;
+                const name = document.getElementById('name').value.trim();
                 if (name) {
-                    // 次のページに名前を渡して移動
-                    localStorage.setItem('lastAccessDate', today); // 今日の日付を保存
+                    // 名前を渡して次のページに移動
                     window.location.href = `next_page.html?name=${encodeURIComponent(name)}`;
                 } else {
                     alert("名前を入力してください");
