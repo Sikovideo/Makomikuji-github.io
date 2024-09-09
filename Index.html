@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>恋みくじオマージュ</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+   
+            <input type="text" id="name" name="name" placeholder="名前を入力">
+            <button id="submit-btn">決定</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('submit-btn').addEventListener('click', function() {
+            const name = document.getElementById('name').value;
+            if(name) {
+                // 次のページに名前を渡して移動
+                window.location.href = `next_page.html?name=${encodeURIComponent(name)}`;
+            } else {
+                alert("名前を入力してください");
+            }
+        });
+    </script>
+</body>
+</html>
