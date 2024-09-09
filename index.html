@@ -14,16 +14,7 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const lastAccessDate = localStorage.getItem('lastAccessDate');
-            const today = new Date().toISOString().split('T')[0]; // 今日の日付を取得 (YYYY-MM-DD形式)
-            
-            // もし前回アクセスした日付が今日と一致すれば、nikaime.htmlに飛ばす
-            if (lastAccessDate === today) {
-                window.location.href = 'nikaime.html';
-            }
-
+<script>
             document.getElementById('submit-btn').addEventListener('click', function() {
                 const name = document.getElementById('name').value;
                 if (name) {
