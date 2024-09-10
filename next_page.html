@@ -1,5 +1,4 @@
-
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
@@ -74,6 +73,7 @@
             const isAllowed = checkLotteryStatus();
             const messageElement = document.getElementById('message');
             const resultHeader = document.getElementById('result-header');
+            const adButton = document.getElementById('ad-button');
 
             if (isAllowed) {
                 const urlParams = new URLSearchParams(window.location.search);
@@ -85,18 +85,18 @@
                     resultHeader.textContent = "名前が入力されていません。";
                 }
 
-                const images = ['1.png', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png', '9.png', '10.png', '11.png', '12
-                                .png', '12.png', '13.png', '14.png', '15.png', '16.png', '17.png'];
+                const images = ['1.png', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png', '9.png', '10.png', '11.png', '12.png', '13.png', '14.png', '15.png', '16.png', '17.png'];
                 const randomImage = images[Math.floor(Math.random() * images.length)];
                 document.getElementById('random-image').src = randomImage;
                 messageElement.textContent = '';
+                adButton.classList.add('hidden'); // 広告ボタンを非表示にする
             } else {
                 resultHeader.textContent = '';
                 document.getElementById('random-image').src = '';
                 messageElement.textContent = '今日はすでにおみくじを引きました。';
 
                 // 広告ボタンを表示
-                document.getElementById('ad-button').classList.remove('hidden');
+                adButton.classList.remove('hidden');
             }
         }
 
