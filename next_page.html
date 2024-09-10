@@ -8,27 +8,27 @@
         body {
             margin: 0;
             padding: 0;
-            background-image: url('背景2.png'); /* 背景画像の設定 */
+            background-image: url('背景2.png');
             background-size: cover;
             background-position: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-end; /* コンテンツを下に揃える */
+            justify-content: flex-end;
             min-height: 100vh;
         }
         .result {
             text-align: center;
-            margin-bottom: 20px; /* 画面下部からのスペース */
+            margin-bottom: 20px;
         }
         .result h1 {
-            font-size: 20px; /* フォントサイズを小さく設定 */
+            font-size: 20px;
         }
         .random-image {
             width: 1200px;
             height: 630px;
-            margin: 20px; /* 画像の周りのスペース */
-            max-width: calc(100% - 40px); /* 画面の幅に対する最大幅を設定 */
+            margin: 20px;
+            max-width: calc(100% - 40px);
             height: auto;
         }
         .message {
@@ -43,64 +43,48 @@
 <body>
     <div class="result">
         <h1 id="result-header"></h1>
-        <!-- 画像を表示するための要素 -->
         <img id="random-image" class="random-image" src="" alt="ランダム画像">
         <p id="message" class="message"></p>
-
-        <!-- 広告ボタン -->
         <button id="ad-button" class="hidden">広告を視聴してもう一度引く</button>
     </div>
 
     <script>
-        // 一日のみおみくじを引けるかどうかをチェック
         function checkLotteryStatus() {
-            const today = new Date().toISOString().split('T')[0]; // 今日の日付を取得
+            const today = new Date().toISOString().split('T')[0];
             const lastDate = localStorage.getItem('lastDate');
             const canDrawAgain = localStorage.getItem('canDrawAgain');
 
-            // 広告視聴後に再度おみくじを引けるフラグが立っている場合は、引けるようにする
+            // 広告視聴後のフラグで判定
             if (canDrawAgain === 'true') {
-                localStorage.setItem('lastDate', today); // 今日の日付を保存
-                localStorage.removeItem('canDrawAgain'); // フラグをリセット
-                return true; // 再度引ける
+                localStorage.setItem('lastDate', today);
+                localStorage.removeItem('canDrawAgain');
+                return true;
             }
 
             if (lastDate === today) {
-                return false; // 今日すでに引いている
+                return false;
             } else {
-                localStorage.setItem('lastDate', today); // 今日の日付を保存
-                return true; // 今日まだ引いていない
+                localStorage.setItem('lastDate', today);
+                return true;
             }
         }
 
-        // おみくじを引く処理
         function drawFortune() {
             const isAllowed = checkLotteryStatus();
             const messageElement = document.getElementById('message');
             const resultHeader = document.getElementById('result-header');
 
             if (isAllowed) {
-                // URLパラメータから名前を取得
                 const urlParams = new URLSearchParams(window.location.search);
                 const name = urlParams.get('name');
                 
-                if(name) {
+                if (name) {
                     resultHeader.textContent = `${name}さんの おみくじの結果`;
                 } else {
                     resultHeader.textContent = "名前が入力されていません。";
                 }
 
-                // ランダムに表示する画像のリスト
-                const images = [
-                    '1.png',
-                    '3.png',
-                    '4.png',
-                    '5.png',
-                    '6.png',
-                    '7.png',
-                ];
-
-                // ランダムに画像を選ぶ
+                const images = ['1.png', '3.png', '4.png', '5.png', '6.png', '7.png'];
                 const randomImage = images[Math.floor(Math.random() * images.length)];
                 document.getElementById('random-image').src = randomImage;
                 messageElement.textContent = '';
@@ -114,13 +98,11 @@
             }
         }
 
-        // 広告視聴ボタンをクリックしたときの処理
         document.getElementById('ad-button').addEventListener('click', function() {
             // 広告ページへリダイレクト
             window.location.href = 'koukoku.html';
         });
 
-        // ページが読み込まれたときにおみくじを引く
         window.onload = drawFortune;
     </script>
 </body>
