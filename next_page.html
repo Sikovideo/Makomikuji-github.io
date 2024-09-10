@@ -35,6 +35,9 @@
             font-size: 20px;
             color: red;
         }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -43,6 +46,13 @@
         <!-- 画像を表示するための要素 -->
         <img id="random-image" class="random-image" src="" alt="ランダム画像">
         <p id="message" class="message"></p>
+
+        <!-- 広告ボタンと動画要素 -->
+        <button id="ad-button" class="hidden">広告を視聴してもう一度引く</button>
+        <video id="ad-video" class="hidden" controls>
+            <source src="広告動画.mp4" type="video/mp4">
+            お使いのブラウザはvideoタグに対応していません。
+        </video>
     </div>
 
     <script>
@@ -94,8 +104,30 @@
                 resultHeader.textContent = '';
                 document.getElementById('random-image').src = '';
                 messageElement.textContent = '今日はすでにおみくじを引きました。';
+
+                // 広告ボタンを表示
+                document.getElementById('ad-button').classList.remove('hidden');
             }
         }
+
+        // 広告視聴ボタンをクリックしたときの処理
+        document.getElementById('ad-button').addEventListener('click', function() {
+            // 広告ボタンを非表示にして、動画を表示
+            document.getElementById('ad-button').classList.add('hidden');
+            document.getElementById('ad-video').classList.remove('hidden');
+
+            // 動画再生終了時におみくじをもう一度引けるようにする
+            document.getElementById('ad-video').addEventListener('ended', function() {
+                // 動画を非表示にする
+                document.getElementById('ad-video').classList.add('hidden');
+
+                // 再度おみくじを引けるようにローカルストレージをリセット
+                localStorage.removeItem('lastDate');
+
+                // おみくじを再度引く
+                drawFortune();
+            });
+        });
 
         // ページが読み込まれたときにおみくじを引く
         window.onload = drawFortune;
