@@ -56,6 +56,14 @@
         function checkLotteryStatus() {
             const today = new Date().toISOString().split('T')[0]; // 今日の日付を取得
             const lastDate = localStorage.getItem('lastDate');
+            const canDrawAgain = localStorage.getItem('canDrawAgain');
+
+            // 広告視聴後に再度おみくじを引けるフラグが立っている場合は、引けるようにする
+            if (canDrawAgain === 'true') {
+                localStorage.setItem('lastDate', today); // 今日の日付を保存
+                localStorage.removeItem('canDrawAgain'); // フラグをリセット
+                return true; // 再度引ける
+            }
 
             if (lastDate === today) {
                 return false; // 今日すでに引いている
