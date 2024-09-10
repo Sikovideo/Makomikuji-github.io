@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>広告ページ</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #000;
+        }
+        video {
+            width: 80%;
+            max-width: 800px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <video id="ad-video" controls>
+        <source src="https://www.dropbox.com/scl/fi/eez0ru84ucw1si98rb68z/lv_0_20240910215628.mp4?rlkey=ns9fjo3o2ycdww893tgd1l7kt&raw=1" type="video/mp4">
+        お使いのブラウザはvideoタグに対応していません。
+    </video>
+
+    <script>
+        // 動画が終了したときの処理
+        document.getElementById('ad-video').addEventListener('ended', function() {
+            // 元のページにリダイレクト
+            window.location.href = 'index.html'; // 元のページのURLを指定してください
+        });
+    </script>
+</body>
+</html>
