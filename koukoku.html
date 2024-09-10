@@ -28,10 +28,10 @@
     </video>
 
     <script>
-        // 動画が終了したときの処理
         document.getElementById('ad-video').addEventListener('ended', function() {
-            // 元のページにリダイレクト
-            window.location.href = 'next_page.html'; // 元のページのURLを指定してください
+            // フラグを設定して元のページに戻す
+            localStorage.setItem('canDrawAgain', 'true');
+            window.location.href = 'next_page.html';
         });
     </script>
 </body>
